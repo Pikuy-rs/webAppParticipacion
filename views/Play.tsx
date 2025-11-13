@@ -21,14 +21,14 @@ const ScoreInput: React.FC<{
   onChange: (newValue: string) => void;
 }> = ({ value, onChange }) => {
   const increment = () => onChange(String(value + 1));
-  const decrement = () => onChange(String(value - 1));
+  const decrement = () => onChange(String(Math.max(0, value - 1)));
 
   return (
     <div className="flex items-center justify-center space-x-2">
       <button
         type="button"
         onClick={decrement}
-        className="w-10 h-10 rounded-full bg-gray-600 text-white font-bold text-xl flex items-center justify-center hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        className="w-9 h-9 flex-shrink-0 rounded-full bg-gray-600 text-white font-bold text-xl flex items-center justify-center hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-emerald-500"
         disabled={value <= 0}
         aria-label="Disminuir marcador"
       >
@@ -41,13 +41,14 @@ const ScoreInput: React.FC<{
         value={value}
         onFocus={(e) => e.target.select()}
         onChange={(e) => onChange(e.target.value)}
-        className="w-14 text-center font-bold text-2xl bg-gray-700 text-white border-gray-600 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+        className="w-12 text-center font-bold text-2xl bg-gray-700 text-white border-gray-600 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
       />
       <button
         type="button"
         onClick={increment}
-        className="w-10 h-10 rounded-full bg-gray-600 text-white font-bold text-xl flex items-center justify-center hover:bg-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        className="w-9 h-9 flex-shrink-0 rounded-full bg-gray-600 text-white font-bold text-xl flex items-center justify-center hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-emerald-500"
         aria-label="Aumentar marcador"
+        disabled={value >= 99}
       >
         +
       </button>
@@ -153,14 +154,22 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
   const renderPredictionInput = (label: string, period: 'firstHalf' | 'secondHalf', scoreA: number, scoreB: number) => (
     <div>
       <label className="block text-sm font-medium text-gray-300 mb-2 text-center">{label}</label>
-      <div className="flex items-center justify-center bg-gray-800 p-3 rounded-lg border border-gray-700">
-        <span className="flex-1 font-bold text-gray-200 text-right text-base sm:text-lg">{prediction.teamA}</span>
-        <div className="flex items-center mx-2 sm:mx-4">
+      <div className="flex items-stretch justify-between bg-gray-800 p-3 rounded-lg border border-gray-700">
+        
+        <div className="flex-1 flex flex-col items-center justify-center text-center space-y-2">
+            <span className="font-bold text-gray-200 text-base leading-tight px-1">{prediction.teamA}</span>
             <ScoreInput value={scoreA} onChange={newValue => handleScoreChange(period, 'A', newValue)} />
-            <span className="mx-2 sm:mx-4 font-bold text-gray-400 text-2xl">-</span>
+        </div>
+
+        <div className="flex items-center justify-center px-1 sm:px-3">
+            <span className="font-bold text-gray-400 text-2xl">-</span>
+        </div>
+        
+        <div className="flex-1 flex flex-col items-center justify-center text-center space-y-2">
+            <span className="font-bold text-gray-200 text-base leading-tight px-1">{prediction.teamB}</span>
             <ScoreInput value={scoreB} onChange={newValue => handleScoreChange(period, 'B', newValue)} />
         </div>
-        <span className="flex-1 font-bold text-gray-200 text-left text-base sm:text-lg">{prediction.teamB}</span>
+
       </div>
     </div>
   );
