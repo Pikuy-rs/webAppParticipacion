@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { Play, MatchPrediction } from '../types';
 
@@ -101,51 +100,51 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
   
   if (isPlayTimeClosed) {
     return (
-      <div className="text-center py-10 px-4 bg-red-50 border border-red-200 rounded-lg">
-        <h2 className="text-xl font-bold text-red-800 mb-2">Participación Cerrada</h2>
-        <p className="text-red-700">El tiempo para cargar jugadas para esta fecha ha finalizado.</p>
-        <p className="text-sm text-red-600 mt-2">¡Mucha suerte a todos los participantes!</p>
+      <div className="text-center py-10 px-4 bg-red-900/50 border border-red-800 rounded-lg">
+        <h2 className="text-xl font-bold text-red-300 mb-2">Participación Cerrada</h2>
+        <p className="text-red-400">El tiempo para cargar jugadas para esta fecha ha finalizado.</p>
+        <p className="text-sm text-red-400 mt-2">¡Mucha suerte a todos los participantes!</p>
       </div>
     );
   }
 
   const renderPredictionInput = (label: string, period: 'firstHalf' | 'secondHalf', scoreA: number, scoreB: number) => (
     <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
-        <div className="flex items-center bg-gray-50 p-3 rounded-lg">
-            <span className="flex-1 font-medium text-gray-800 text-right text-sm sm:text-base">{prediction.teamA}</span>
+        <label className="block text-sm font-medium text-gray-300 mb-2">{label}</label>
+        <div className="flex items-center bg-gray-800 p-3 rounded-lg border border-gray-700">
+            <span className="flex-1 font-medium text-gray-200 text-right text-sm sm:text-base">{prediction.teamA}</span>
             <div className="flex items-center mx-4 flex-shrink-0">
-                <input type="number" value={scoreA} onChange={e => handleScoreChange(period, 'A', e.target.value)} className="w-12 text-center font-bold text-lg text-gray-900 border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" />
-                <span className="mx-2 font-bold text-gray-400">-</span>
-                <input type="number" value={scoreB} onChange={e => handleScoreChange(period, 'B', e.target.value)} className="w-12 text-center font-bold text-lg text-gray-900 border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" />
+                <input type="number" value={scoreA} onChange={e => handleScoreChange(period, 'A', e.target.value)} className="w-12 text-center font-bold text-lg bg-gray-700 text-white border-gray-600 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" />
+                <span className="mx-2 font-bold text-gray-500">-</span>
+                <input type="number" value={scoreB} onChange={e => handleScoreChange(period, 'B', e.target.value)} className="w-12 text-center font-bold text-lg bg-gray-700 text-white border-gray-600 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" />
             </div>
-            <span className="flex-1 font-medium text-gray-800 text-left text-sm sm:text-base">{prediction.teamB}</span>
+            <span className="flex-1 font-medium text-gray-200 text-left text-sm sm:text-base">{prediction.teamB}</span>
         </div>
     </div>
   );
 
   return (
     <div className="pb-16">
-      <h2 className="text-2xl font-bold text-blue-900 mb-4">Cargar Jugada</h2>
-      {error && <p className="bg-red-100 text-red-700 p-3 rounded-md mb-4 text-sm">{error}</p>}
+      <h2 className="text-2xl font-bold text-white mb-4">Cargar Jugada</h2>
+      {error && <p className="bg-red-900/50 text-red-300 p-3 rounded-md mb-4 text-sm border border-red-800">{error}</p>}
       
       {!isSerialVerified ? (
         <form onSubmit={handleVerifySerial} className="space-y-4">
           <div>
-            <label htmlFor="serial" className="block text-sm font-medium text-gray-700 mb-1">Paso 1: Validar N° de Serie</label>
+            <label htmlFor="serial" className="block text-sm font-medium text-gray-300 mb-1">Paso 1: Validar N° de Serie</label>
             <input
               type="text"
               id="serial"
               value={serialNumber}
               onChange={(e) => setSerialNumber(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md shadow-sm text-white placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm"
               placeholder="Ingresa el código único"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-800 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 disabled:bg-blue-400"
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 disabled:bg-emerald-800/50 disabled:cursor-not-allowed"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Verificando...' : 'Verificar Serie'}
@@ -154,21 +153,21 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
       ) : (
         <form onSubmit={handleAttemptSubmit} className="space-y-6">
           <div>
-            <p className="text-sm text-gray-600">N° de Serie Verificado:</p>
-            <p className="font-bold text-emerald-600 text-lg">{serialNumber}</p>
+            <p className="text-sm text-gray-400">N° de Serie Verificado:</p>
+            <p className="font-bold text-emerald-400 text-lg">{serialNumber}</p>
           </div>
           
           <div className="space-y-4">
-            <h3 className="font-semibold text-gray-800">Paso 2: Ingresá tus pronósticos</h3>
+            <h3 className="font-semibold text-gray-100">Paso 2: Ingresá tus pronósticos</h3>
             {renderPredictionInput("Resultado 1er Tiempo", "firstHalf", prediction.firstHalfScoreA, prediction.firstHalfScoreB)}
             {renderPredictionInput("Resultado 2do Tiempo", "secondHalf", prediction.secondHalfScoreA, prediction.secondHalfScoreB)}
 
-            <div className="border-t pt-4 mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Resultado Final (calculado)</label>
-                <div className="flex items-center bg-emerald-50 border border-emerald-200 p-3 rounded-lg">
-                     <span className="flex-1 font-bold text-gray-800 text-lg text-right">{prediction.teamA}</span>
-                      <span className="font-extrabold text-emerald-800 text-2xl mx-4 flex-shrink-0">{prediction.finalScoreA} - {prediction.finalScoreB}</span>
-                     <span className="flex-1 font-bold text-gray-800 text-lg text-left">{prediction.teamB}</span>
+            <div className="border-t border-gray-700 pt-4 mt-4">
+                <label className="block text-sm font-medium text-gray-300 mb-2">Resultado Final (calculado)</label>
+                <div className="flex items-center bg-emerald-900/50 border border-emerald-800 p-3 rounded-lg">
+                     <span className="flex-1 font-bold text-gray-200 text-lg text-right">{prediction.teamA}</span>
+                      <span className="font-extrabold text-emerald-300 text-2xl mx-4 flex-shrink-0">{prediction.finalScoreA} - {prediction.finalScoreB}</span>
+                     <span className="flex-1 font-bold text-gray-200 text-lg text-left">{prediction.teamB}</span>
                 </div>
             </div>
           </div>
@@ -183,15 +182,15 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
       )}
 
       {showConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm">
-                <h3 className="text-lg font-bold text-blue-900">Confirmar Jugada</h3>
-                <p className="text-gray-600 my-4 text-sm">Una vez enviada, tu jugada no podrá ser modificada. ¿Deseas continuar?</p>
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
+            <div className="bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm border border-gray-700">
+                <h3 className="text-lg font-bold text-white">Confirmar Jugada</h3>
+                <p className="text-gray-300 my-4 text-sm">Una vez enviada, tu jugada no podrá ser modificada. ¿Deseas continuar?</p>
                 <div className="flex justify-end space-x-3 mt-4">
-                    <button onClick={() => setShowConfirm(false)} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300" disabled={isSubmitting}>
+                    <button onClick={() => setShowConfirm(false)} className="px-4 py-2 text-sm font-medium text-gray-200 bg-gray-600 rounded-md hover:bg-gray-500" disabled={isSubmitting}>
                         Cancelar
                     </button>
-                    <button onClick={handleConfirmSubmit} className="px-4 py-2 text-sm font-medium text-white bg-emerald-500 rounded-md hover:bg-emerald-600 disabled:bg-emerald-300 flex items-center" disabled={isSubmitting}>
+                    <button onClick={handleConfirmSubmit} className="px-4 py-2 text-sm font-medium text-white bg-emerald-500 rounded-md hover:bg-emerald-600 disabled:bg-emerald-400/50 flex items-center" disabled={isSubmitting}>
                         {isSubmitting && <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>}
                         {isSubmitting ? 'Enviando...' : 'Confirmar y Enviar'}
                     </button>

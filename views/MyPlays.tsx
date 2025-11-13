@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Play } from '../types';
 import PlayCard from '../components/PlayCard';
@@ -13,13 +12,13 @@ const MyPlays: React.FC<MyPlaysProps> = ({ plays, userEmail }) => {
 
   return (
     <div className="pb-16">
-      <h2 className="text-2xl font-bold text-blue-900 mb-4">Mis Jugadas</h2>
+      <h2 className="text-2xl font-bold text-white mb-4">Mis Jugadas</h2>
       {userPlays.length > 0 ? (
         userPlays.map(play => <PlayCard key={play.id} play={play} />)
       ) : (
-        <div className="text-center py-10 px-4 bg-gray-50 rounded-lg">
-          <p className="text-gray-600">Aún no has cargado ninguna jugada.</p>
-          <p className="text-sm text-gray-500 mt-2">Dirígete a la pestaña "Jugar" para empezar.</p>
+        <div className="text-center py-10 px-4 bg-gray-800 rounded-lg border border-gray-700">
+          <p className="text-gray-300">Aún no has cargado ninguna jugada.</p>
+          <p className="text-sm text-gray-400 mt-2">Dirígete a la pestaña "Jugar" para empezar.</p>
         </div>
       )}
     </div>
