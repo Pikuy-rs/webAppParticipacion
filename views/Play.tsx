@@ -16,6 +16,45 @@ const initialPrediction: MatchPrediction = {
   finalScoreB: 0,
 };
 
+const ScoreInput: React.FC<{
+  value: number;
+  onChange: (newValue: string) => void;
+}> = ({ value, onChange }) => {
+  const increment = () => onChange(String(value + 1));
+  const decrement = () => onChange(String(value - 1));
+
+  return (
+    <div className="flex items-center justify-center space-x-2">
+      <button
+        type="button"
+        onClick={decrement}
+        className="w-10 h-10 rounded-full bg-gray-600 text-white font-bold text-xl flex items-center justify-center hover:bg-gray-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        disabled={value <= 0}
+        aria-label="Disminuir marcador"
+      >
+        -
+      </button>
+      <input
+        type="text"
+        inputMode="numeric"
+        pattern="[0-9]*"
+        value={value}
+        onFocus={(e) => e.target.select()}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-14 text-center font-bold text-2xl bg-gray-700 text-white border-gray-600 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+      />
+      <button
+        type="button"
+        onClick={increment}
+        className="w-10 h-10 rounded-full bg-gray-600 text-white font-bold text-xl flex items-center justify-center hover:bg-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        aria-label="Aumentar marcador"
+      >
+        +
+      </button>
+    </div>
+  );
+};
+
 
 const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
   const [serialNumber, setSerialNumber] = useState('');
@@ -61,8 +100,11 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
   };
 
   const handleScoreChange = (period: 'firstHalf' | 'secondHalf', team: 'A' | 'B', value: string) => {
-    const score = parseInt(value, 10);
-    if (isNaN(score) || score < 0 || score >= 100) return;
+    const score = value === '' ? 0 : parseInt(value, 10);
+
+    if (isNaN(score) || score < 0 || score > 99) {
+        return;
+    }
 
     setPrediction(prev => {
         const newPred = { ...prev };
@@ -110,16 +152,16 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
 
   const renderPredictionInput = (label: string, period: 'firstHalf' | 'secondHalf', scoreA: number, scoreB: number) => (
     <div>
-        <label className="block text-sm font-medium text-gray-300 mb-2">{label}</label>
-        <div className="flex items-center bg-gray-800 p-3 rounded-lg border border-gray-700">
-            <span className="flex-1 font-medium text-gray-200 text-right text-sm sm:text-base">{prediction.teamA}</span>
-            <div className="flex items-center mx-4 flex-shrink-0">
-                <input type="number" value={scoreA} onChange={e => handleScoreChange(period, 'A', e.target.value)} className="w-12 text-center font-bold text-lg bg-gray-700 text-white border-gray-600 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" />
-                <span className="mx-2 font-bold text-gray-500">-</span>
-                <input type="number" value={scoreB} onChange={e => handleScoreChange(period, 'B', e.target.value)} className="w-12 text-center font-bold text-lg bg-gray-700 text-white border-gray-600 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" />
-            </div>
-            <span className="flex-1 font-medium text-gray-200 text-left text-sm sm:text-base">{prediction.teamB}</span>
+      <label className="block text-sm font-medium text-gray-300 mb-2 text-center">{label}</label>
+      <div className="flex items-center justify-center bg-gray-800 p-3 rounded-lg border border-gray-700">
+        <span className="flex-1 font-bold text-gray-200 text-right text-base sm:text-lg">{prediction.teamA}</span>
+        <div className="flex items-center mx-2 sm:mx-4">
+            <ScoreInput value={scoreA} onChange={newValue => handleScoreChange(period, 'A', newValue)} />
+            <span className="mx-2 sm:mx-4 font-bold text-gray-400 text-2xl">-</span>
+            <ScoreInput value={scoreB} onChange={newValue => handleScoreChange(period, 'B', newValue)} />
         </div>
+        <span className="flex-1 font-bold text-gray-200 text-left text-base sm:text-lg">{prediction.teamB}</span>
+      </div>
     </div>
   );
 
