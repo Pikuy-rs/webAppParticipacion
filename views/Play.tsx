@@ -124,7 +124,7 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
   );
 
   return (
-    <div className="pb-16">
+    <div>
       <h2 className="text-2xl font-bold text-white mb-4">Cargar Jugada</h2>
       {error && <p className="bg-red-900/50 text-red-300 p-3 rounded-md mb-4 text-sm border border-red-800">{error}</p>}
       

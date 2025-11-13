@@ -29,7 +29,7 @@ const NavItem: React.FC<{
 
 const BottomNav: React.FC<BottomNavProps> = ({ activeTab, setActiveTab }) => {
   return (
-    <nav className="w-full max-w-md fixed bottom-0 left-1/2 -translate-x-1/2 bg-gray-900/70 backdrop-blur-sm border-t border-gray-700 flex h-16">
+    <nav className="w-full max-w-md md:relative fixed bottom-0 left-1/2 -translate-x-1/2 bg-gray-900 border-t border-gray-700 flex h-16 z-10">
       <NavItem
         label="INICIO"
         icon={<HomeIcon />}

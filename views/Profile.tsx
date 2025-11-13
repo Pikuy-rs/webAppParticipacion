@@ -49,7 +49,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onLogout, onUpdateUser }) => {
   const hrClass = "border-gray-700";
 
   return (
-    <div className="pb-16 space-y-8">
+    <div className="space-y-8">
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-white">Mi Perfil</h2>

@@ -11,7 +11,7 @@ const MyPlays: React.FC<MyPlaysProps> = ({ plays, userEmail }) => {
   const userPlays = plays.filter(p => p.userEmail === userEmail || p.userEmail === 'demo@example.com');
 
   return (
-    <div className="pb-16">
+    <div>
       <h2 className="text-2xl font-bold text-white mb-4">Mis Jugadas</h2>
       {userPlays.length > 0 ? (
         userPlays.map(play => <PlayCard key={play.id} play={play} />)

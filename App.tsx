@@ -92,12 +92,12 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-200 flex flex-col items-center">
-      <div className="w-full max-w-md mx-auto flex flex-col relative" style={{minHeight: '100vh'}}>
-        <header className="w-full max-w-md fixed top-0 left-1/2 -translate-x-1/2 bg-gray-900/70 backdrop-blur-sm text-white p-4 shadow-lg z-10 border-b border-gray-800">
+    <div className="min-h-screen bg-gray-900 text-gray-200">
+      <div className="w-full max-w-md mx-auto flex flex-col md:h-auto h-screen">
+        <header className="w-full max-w-md md:relative fixed top-0 left-1/2 -translate-x-1/2 bg-gray-900 text-white p-4 shadow-lg z-10 border-b border-gray-800">
             <h1 className="text-xl font-bold text-center text-emerald-400">TucuGol</h1>
         </header>
-        <main className="flex-grow p-4 md:p-6 overflow-y-auto pt-24">
+        <main className="flex-grow p-4 md:p-6 overflow-y-auto md:overflow-y-visible pt-24 md:pt-6 pb-20 md:pb-6">
           {renderContent()}
         </main>
         <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />

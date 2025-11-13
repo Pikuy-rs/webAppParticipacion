@@ -7,7 +7,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ setActiveTab }) => {
   return (
-    <div className="text-center flex flex-col justify-center h-full pb-16">
+    <div className="text-center flex flex-col justify-center h-full">
       <div className="bg-gradient-to-br from-gray-800 to-gray-800/50 p-6 rounded-lg shadow-lg border border-gray-700">
         <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Pozo Acumulado</h2>
         <p className="text-5xl font-bold text-emerald-400 my-2">$1.250.000</p>
