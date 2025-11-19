@@ -140,16 +140,6 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
       setPrediction(initialPrediction);
     }, 1500);
   };
-  
-  if (isPlayTimeClosed) {
-    return (
-      <div className="text-center py-10 px-4 bg-red-900/50 border border-red-800 rounded-lg">
-        <h2 className="text-xl font-bold text-red-300 mb-2">Participación Cerrada</h2>
-        <p className="text-red-400">El tiempo para cargar jugadas para esta fecha ha finalizado.</p>
-        <p className="text-sm text-red-400 mt-2">¡Mucha suerte a todos los participantes!</p>
-      </div>
-    );
-  }
 
   const renderPredictionInput = (label: string, period: 'firstHalf' | 'secondHalf', scoreA: number, scoreB: number) => (
     <div>
@@ -202,34 +192,51 @@ const PlayView: React.FC<PlayViewProps> = ({ onAddPlay }) => {
           </button>
         </form>
       ) : (
-        <form onSubmit={handleAttemptSubmit} className="space-y-6">
-          <div>
-            <p className="text-sm text-gray-400">N° de Serie Verificado:</p>
-            <p className="font-bold text-emerald-400 text-lg">{serialNumber}</p>
-          </div>
-          
-          <div className="space-y-4">
-            <h3 className="font-semibold text-gray-100">Paso 2: Ingresá tus pronósticos</h3>
-            {renderPredictionInput("Resultado 1er Tiempo", "firstHalf", prediction.firstHalfScoreA, prediction.firstHalfScoreB)}
-            {renderPredictionInput("Resultado 2do Tiempo", "secondHalf", prediction.secondHalfScoreA, prediction.secondHalfScoreB)}
-
-            <div className="border-t border-gray-700 pt-4 mt-4">
-                <label className="block text-sm font-medium text-gray-300 mb-2">Resultado Final (calculado)</label>
-                <div className="flex items-center bg-emerald-900/50 border border-emerald-800 p-3 rounded-lg">
-                     <span className="flex-1 font-bold text-gray-200 text-lg text-right">{prediction.teamA}</span>
-                      <span className="font-extrabold text-emerald-300 text-2xl mx-4 flex-shrink-0">{prediction.finalScoreA} - {prediction.finalScoreB}</span>
-                     <span className="flex-1 font-bold text-gray-200 text-lg text-left">{prediction.teamB}</span>
+        <>
+            {isPlayTimeClosed ? (
+                <div className="text-center py-6 px-4 space-y-6">
+                    <div className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                        <p className="text-sm text-gray-400">N° de Serie:</p>
+                        <p className="font-mono font-bold text-emerald-400 text-lg">{serialNumber}</p>
+                        <p className="text-sm text-green-400 mt-2">✓ Serie Validada Correctamente</p>
+                    </div>
+                    <div className="bg-yellow-900/50 border border-yellow-800 rounded-lg p-6">
+                        <h2 className="text-xl font-bold text-yellow-300 mb-2">Carga de Pronósticos Cerrada</h2>
+                        <p className="text-yellow-400">El tiempo para cargar jugadas para esta fecha ha finalizado.</p>
+                        <p className="text-sm text-yellow-400 mt-2">Tu serie es válida, pero ya no es posible registrar un pronóstico. ¡Mucha suerte para la próxima!</p>
+                    </div>
                 </div>
-            </div>
-          </div>
+            ) : (
+                <form onSubmit={handleAttemptSubmit} className="space-y-6">
+                    <div>
+                        <p className="text-sm text-gray-400">N° de Serie Verificado:</p>
+                        <p className="font-bold text-emerald-400 text-lg">{serialNumber}</p>
+                    </div>
+                    
+                    <div className="space-y-4">
+                        <h3 className="font-semibold text-gray-100">Paso 2: Ingresá tus pronósticos</h3>
+                        {renderPredictionInput("Resultado 1er Tiempo", "firstHalf", prediction.firstHalfScoreA, prediction.firstHalfScoreB)}
+                        {renderPredictionInput("Resultado 2do Tiempo", "secondHalf", prediction.secondHalfScoreA, prediction.secondHalfScoreB)}
 
-          <button
-            type="submit"
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
-          >
-            Enviar Jugada
-          </button>
-        </form>
+                        <div className="border-t border-gray-700 pt-4 mt-4">
+                            <label className="block text-sm font-medium text-gray-300 mb-2">Resultado Final (calculado)</label>
+                            <div className="flex items-center bg-emerald-900/50 border border-emerald-800 p-3 rounded-lg">
+                                <span className="flex-1 font-bold text-gray-200 text-lg text-right">{prediction.teamA}</span>
+                                <span className="font-extrabold text-emerald-300 text-2xl mx-4 flex-shrink-0">{prediction.finalScoreA} - {prediction.finalScoreB}</span>
+                                <span className="flex-1 font-bold text-gray-200 text-lg text-left">{prediction.teamB}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-500 hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
+                    >
+                        Enviar Jugada
+                    </button>
+                </form>
+            )}
+        </>
       )}
 
       {showConfirm && (
